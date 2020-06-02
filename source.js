@@ -15,28 +15,23 @@ function delDuplicateChar(str) {
         }
 
 
-    let tmp = vec[0]; // беру первое слово
+    let tmp = vec[0];
 
-    for(let i = 0; i < vec[0].length; i++) { // идем по нему
+    for(let i = 0; i < vec1[0].length; i++) {
 
         let count = 1;
-        for(let j = 1; j < vec.length; j++) // цикл по оставшимся словам
-            if (vec1[j].indexOf(tmp[i]) === i) count++; // если идекс tmp[i] буквы в оставшихся словах
-                                                        // совпадет с индексом этой буквы в первом слове. увеличиваю счетчик
+        for(let j = 1; j < vec1.length; j++)
+            if (vec1[j].indexOf(tmp[i]) === i) count++;
 
-        if(count === k) // если количество совпадений равно количеству слов
-            for(let j = 0; j < vec.length; j++){ // в каждом слове удаляю эту букву
-
-               let tmp1 = vec[j].substring(0, i);
-               tmp1 += vec[j].substring(i + 1, vec[j].length);
-
-               vec[j] = tmp1;
-            }
+        if(count === k)
+            for(let j = 0; j < vec.length; j++)
+               vec[j] = vec[j].replace(tmp[i],'');
     }
 
     let res = '';
-    for(let i = 0; i < vec1.length; i++)
+    for(let i = 0; i < vec.length; i++)
         str = str.replace(vec1[i],vec[i]);
+    console.log(vec1, vec, str);
 
     return str;
 
