@@ -3,39 +3,44 @@ function delDuplicateChar(str) {
     const re = /[,.!?:; ]/;
 
     let vecStr = str.split(re);
+    vecStr = vecStr.filter(element => element !== '');
 
+    let wordMinLength = vecStr.reduce(function (a, b) { return a.length < b.length ? a : b; });
 
-    let k = 0; let vec = []; let vec1 = [];
+    let minLength = wordMinLength.length;
 
-    for(let i = 0; i < vecStr.length; i++)
-        if (vecStr[i] !== '') {
-            vec[k] = vecStr[i];
-            vec1[k] = vecStr[i];
-            k++;
+    let word = vecStr[0];
+    let countDel = 0;   let newVecStr = [];
+
+    for (let i = 0; i < vecStr.length; i++)
+        newVecStr[i] = vecStr[i];
+
+    for(let i = 0; i < minLength; i++){
+
+        let letter = word[i];
+
+        let numOfSame = 1;
+        for(let j = 1; j < vecStr.length; j++) {
+            let tmp = vecStr[j];
+            if(letter === tmp[i]) numOfSame++;
         }
 
-
-    let tmp = vec[0];
-
-    for(let i = 0; i < vec1[0].length; i++) {
-
-        let count = 1;
-        for(let j = 1; j < vec1.length; j++)
-            if (vec1[j].indexOf(tmp[i]) === i) count++;
-
-        if(count === k)
-            for(let j = 0; j < vec.length; j++)
-               vec[j] = vec[j].replace(tmp[i],'');
+        if(numOfSame === vecStr.length) {
+            for (let j = 0; j < vecStr.length; j++){
+                let tmp = newVecStr[j];
+                newVecStr[j] = tmp.substring(0,i - countDel) + tmp.substring(i - countDel + 1, tmp.length);
+            }
+            countDel++;
+        }
     }
 
-    let res = '';
-    for(let i = 0; i < vec.length; i++)
-        str = str.replace(vec1[i],vec[i]);
-    console.log(vec1, vec, str);
+    for(let i = 0; i < vecStr.length; i++)
+        str = str.replace(vecStr[i], newVecStr[i]);
 
     return str;
 
 }
 
-console.log(delDuplicateChar("Hello! Hell?"));
+console.log("Hlelo! Hell?");
+console.log(delDuplicateChar("Hlelo! Hell?"));
 
