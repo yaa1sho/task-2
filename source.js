@@ -10,7 +10,8 @@ function delDuplicateChar(str) {
     let minLength = wordMinLength.length;
 
     let word = vecStr[0];
-    let countDel = 0;   let newVecStr = [];
+
+    let newVecStr = [];
 
     for (let i = 0; i < vecStr.length; i++)
         newVecStr[i] = vecStr[i];
@@ -21,16 +22,12 @@ function delDuplicateChar(str) {
 
         let numOfSame = 1;
         for(let j = 1; j < vecStr.length; j++) {
-            let tmp = vecStr[j];
-            if(letter === tmp[i]) numOfSame++;
+            if(vecStr[j].includes(letter) === true) numOfSame++;
         }
 
         if(numOfSame === vecStr.length) {
-            for (let j = 0; j < vecStr.length; j++){
-                let tmp = newVecStr[j];
-                newVecStr[j] = tmp.substring(0,i - countDel) + tmp.substring(i - countDel + 1, tmp.length);
-            }
-            countDel++;
+            for (let j = 0; j < vecStr.length; j++)
+                newVecStr[j] = newVecStr[j].replace(letter,'');
         }
     }
 
@@ -41,6 +38,6 @@ function delDuplicateChar(str) {
 
 }
 
-console.log("Hlelo! Hell?");
-console.log(delDuplicateChar("Hlelo! Hell?"));
+console.log("enter : " + "Чего-с изволите-с? Барин-с!");
+console.log("result : " + delDuplicateChar("Чего-с изволите-с? Барин-с!"));
 
